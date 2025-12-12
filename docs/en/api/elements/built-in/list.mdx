@@ -318,6 +318,12 @@ scroll-event-throttle?: number
 
 Sets the time interval for the `<list>` callback [`scroll`](#scroll) event, in milliseconds (ms). By default, the scroll event is called back every 200 ms.
 
+:::note
+
+When the `engineVersion` version is less than <VersionBadge v={3.4} />, this attribute will not take effect, and the [`scroll`](#scroll) event will not be intercepted. When the `engineVersion` version is greater than or equal to <VersionBadge v={3.4} />, if this attribute is not set, it will use default value 200 ms.
+
+:::
+
 ### `item-snap`
 
 ```tsx
@@ -528,7 +534,7 @@ It is strongly recommended that developers set `estimated-main-axis-size-px` to 
 experimental-recycle-sticky-item?: boolean
 ```
 
-When there are multiple sticky nodes, after a sticky node is pushed out of the `<list>` area by other sticky nodes, the node is recycled to address the memory overhead issue caused by too many sticky nodes. This optimization is enabled by default when `engineVersion` version is greater than or equal to `3.4`.
+When there are multiple sticky nodes, after a sticky node is pushed out of the `<list>` area by other sticky nodes, the node is recycled to address the memory overhead issue caused by too many sticky nodes. This optimization is enabled by default when `engineVersion` version is greater than or equal to <VersionBadge v={3.4} />.
 
 <table
   rules="none"
@@ -741,6 +747,7 @@ this.createSelectorQuery()
       position: 10,
       offset: 100,
       alignTo: 'top',
+      itemKey: `${itemKey}`
       smooth: true,
     },
     success: function (res) {},
@@ -756,6 +763,7 @@ Scroll the `<list>` component to the specified position. Parameter description:
 | position  | number  | None    | Yes      | Specifies the index of the node to scroll to, with a range of `[0, data source count)`                                                                                                                                                                                                                                                                                                                                                                      |
 | offset    | number  | None    | No       | After applying `alignTo` alignment, continue scrolling the `offset` length                                                                                                                                                                                                                                                                                                                                                                                  |
 | alignTo   | string  | null    | Yes      | The position of the target node in the view after scrolling. <br/><br/>`"bottom"`: Scroll until the node is fully visible in `<list>`, and the bottom of the node aligns with the bottom of `<list>`<br/><br/>`"top"`: Scroll until the node is fully visible in `<list>`, and the top of the node aligns with the top of `<list>`<br/><br/>`"middle"`: Scroll until the node is fully visible in `<list>`, and the node is vertically centered in `<list>` |
+| itemKey   | string  | null    | NO       | Specifies the `item-key` of the node to scroll to.                                                                                                                                                                                                                                                                                                                                                                                                          |
 | smooth    | boolean | false   | No       | Whether there is animation during the scrolling process                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 ### `autoScroll`
